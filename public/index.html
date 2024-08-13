@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Creator</title>
+    <link href="styles.css" rel="stylesheet">
+    <!-- Incluye html2canvas desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <!-- Incluye jsPDF desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Card Creator</h1>
+        
+        <form id="card-form">
+            <label for="description">Card Description:</label>
+            <textarea id="description" rows="3" placeholder="Enter a description for the card..."></textarea>
+            
+            <div>
+                <button id="generate-image" type="button">Generate Image</button>
+                <button id="generate-text" type="button">Generate Text</button>
+            </div>
+        </form>
+
+        <div id="card">
+            <img id="card-image" src="" alt="Generated Card Image">
+            <p id="card-text"></p>
+        </div>
+
+        <div>
+            <button id="save-card" type="button">Save Card</button>
+            <button id="export-image" type="button">Export as Image</button>
+            <button id="export-pdf" type="button">Export as PDF</button>
+        </div>
+    </div>
+
+    <script src="../src/app.js"></script>
+</body>
+</html>

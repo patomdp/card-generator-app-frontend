@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Puedes agregar estilos personalizados adicionales aquí si es necesario */
+
+body {
+    @apply bg-gray-100;
+}
+
+#card {
+    @apply bg-gray-50 p-4 rounded-lg shadow-inner text-center mb-4;
+}
+
+button {
+    @apply px-4 py-2 rounded text-white;
+}
+
+#generate-image {
+    @apply bg-blue-500 hover:bg-blue-700;
+}
+
+#generate-text {
+    @apply bg-green-500 hover:bg-green-700;
+}
+
+#export-image {
+    @apply bg-purple-500 hover:bg-purple-700;
+}
+
+#export-pdf {
+    @apply bg-orange-500 hover:bg-orange-700;
+}
