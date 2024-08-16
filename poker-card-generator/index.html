@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Cartas de Póker</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <link rel="stylesheet" href="style-v2.css">
+</head>
+<body>
+    <h1>Poker Card Generator</h1>
+    <div class="container">
+        <div class="card">
+            <div class="value-wrapper">
+                <div class="card-value"></div>
+                <div class="card-suite"></div>
+            </div>
+            <div id="cardImage" class="card-image"></div>
+            <div class="value-wrapper bottom">
+                <div class="card-value"></div>
+                <div class="card-suite"></div>
+            </div>
+        </div>
+        <div class="controls">
+            <select id="suiteSelect">
+                <option value="♠️">♠️ Spades</option>
+                <option value="♦️">♦️ Diamonds</option>
+                <option value="♣️">♣️ Clubs</option>
+                <option value="♥️">♥️ Hearts</option>
+                <option value="Joker">🃏 Joker</option>
+            </select>
+            <select id="valueSelect">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="J">J</option>
+                <option value="Q">Q</option>
+                <option value="K">K</option>
+            </select>
+            <button id="generateBtn">Generar</button>
+            <!-- <button id="exportBtnCard">Exportar Carta</button> -->
+            <button id="exportBtnCardComplete">Exportar</button>
+        </div>
+        <div id="promptUsed">
+Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, ducimus. Minima beatae esse ex id magni eius earum illo ipsam reiciendis laboriosam molestiae est aliquam, quaerat in at laudantium saepe.
+
+        </div>
+    </div>
+    <script src="app-v4.js"></script>
+</body>
+
+</html>
