@@ -24,15 +24,12 @@ h1 {
 
 .card {
     flex-direction: row;
-    /* width: 250px; */
-    /* height: 350px; */
     width: calc(500px/1.5);
     height: calc(700px/1.5);
     border: 1px solid #ccc;
     border-radius: 10px;
     margin: 0 auto 20px;
     display: flex;
-    /* flex-direction: column; */
     justify-content: space-between;
     padding: 10px;
     background-color: #fff;
@@ -40,7 +37,6 @@ h1 {
 }
 
 .card-image {
-    /* height: 250px; */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -84,9 +80,6 @@ button:hover {
     margin-top: 20px;
 }
 
-/* #cardSuite, #cardValue {
-} */
-
 .value-wrapper{
     font-size: xx-large;
     display: flex;
@@ -95,6 +88,5 @@ button:hover {
 
 .bottom {
     align-items: flex-end;
-    /* justify-content: end; */
     rotate: 180deg;
 }
