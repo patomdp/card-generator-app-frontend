@@ -74,7 +74,7 @@ async function generateImage(prompt) {
 
 // Función para generar la imagen usando la API de Segmind
 async function generateImage(prompt) {
-    const apiKey = 'SG_0a5db79ee7d4e0c7'; // Reemplaza esto con tu API key real
+    const apiKey = 'API_KEY'; // Reemplaza esto con tu API key real
     const apiUrl = 'https://api.segmind.com/v1/sdxl1.0-txt2img';
 
     const data = {

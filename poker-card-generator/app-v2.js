@@ -92,7 +92,7 @@ async function basicImage(prompt) {
 // Función para generar la imagen usando la API de Segmind
 async function generateImage(prompt, container, api) {
   // const apiKey = process.env.segmin;
-    // const apiKey = "SG_0a5db79ee7d4e0c7"; // Asegúrate de haber reemplazado esto con tu API key real
+    // const apiKey = "API_KEY"; // Asegúrate de haber reemplazado esto con tu API key real
   // const apiUrl = "https://api.segmind.com/v1/sdxl1.0-txt2img";
 
   console.log('backendUrl + api: ', backendUrl + api);
