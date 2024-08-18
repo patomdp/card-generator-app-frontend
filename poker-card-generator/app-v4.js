@@ -1,34 +1,45 @@
+// const selectedStyle = "Low Poly style, minimalistic yet detailed";
+// Modern playing card design featuring stylized characters,
+const selectedStyle = "minimalist and geometric shapes, vector art";
+// const selectedStyle = "Vintage, detailed and ornate, featuring royal figures with elaborate crowns and robes, rich colors, intricate patterns, old parchment background, traditional artistic style, symbols of suits like hearts, spades, diamonds, and clubs.";
+// const selectedStyle = "Universe, cosmic, magical, spiritual, ethereal, mystical, astrological, stars";
+
 // Characteristics of the suits
 const suiteCharacteristics = {
   "♠️": {
-    name: "Spades",
+    name: "Pikes or Spades",
     color: "black",
     traits: "elegant, noble, mysterious",
     palette: "dark tones, black, gray, silver",
+    style: selectedStyle,
   },
   "♦️": {
-    name: "Diamonds",
+    name: "Tiles, Diamonds",
     color: "red",
     traits: "luxurious, bright, valuable",
     palette: "red, gold, white",
+    style: selectedStyle,
   },
   "♣️": {
-    name: "Clubs",
+    name: "Clubs or clover",
     color: "black",
     traits: "natural, lucky, earthy",
     palette: "dark green, brown, black",
+    style: selectedStyle,
   },
   "♥️": {
     name: "Hearts",
     color: "red",
     traits: "passionate, emotional, warm",
     palette: "red, pink, white",
+    style: selectedStyle,
   },
-  Joker: {
-    name: "Joker",
+  '🎭': {
+    name: "Jester",
     color: "multicolor",
     traits: "chaotic, unpredictable, playful",
-    palette: "multicolor, vibrant",
+    palette: "blue, yellow, gold, vibrant",
+    style: selectedStyle,
   },
 };
 
@@ -39,7 +50,7 @@ const cardRanks = {
   J: "Jack",
   Q: "Queen",
   K: "King",
-  Joker: "Joker",
+  Jester: "Jester",
 };
 
 // Elementos del DOM
@@ -63,39 +74,47 @@ function generateRandomSeed() {
 }
 
 // Función para generar el prompt
+
+// Prompt: Character that represents the Poker Card 🎭 of Jester, chaotic, unpredictable, playful, in the style of multicolor with multicolor, vibrant, 🎭 symbols of Jester arranged artistically, transparent background
 function generatePrompt(suite, value) {
   const suiteInfo = suiteCharacteristics[suite];
-  let rank = cardRanks[value] || value;
-  let basePrompt = `Character that represents the Poker Card ${rank} of ${suiteInfo.name}, ${suiteInfo.traits}, in the style of ${suiteInfo.color} with ${suiteInfo.palette}`;
+  // let rank = cardRanks[value] || value;
+  // let rank = value;
+  let rank = cardRanks[value];
+  console.log('rank: ', rank);
+  // clg
+  // Character that represents the
+  let basePrompt = `${rank} of ${suiteInfo.name}, ${suiteInfo.traits}, ${suiteInfo.style} with ${suiteInfo.palette} bold and simple colors, high-contrast color palette, hd, fully detailed`;
   // let basePrompt = `Personaje que representa a la Carta de póker ${rank} de ${suiteInfo.name}, ${suiteInfo.traits}, en estilo ${suiteInfo.color} con ${suiteInfo.palette}`;
 
   if (rank === "King" || rank === "Queen" || rank === "Jack") {
-    basePrompt += `, royal figure with an elaborated clothing and symbols of ${suiteInfo.name}`;
+    basePrompt += `, unique fantasy-themed character in dynamic pose upper body, royal figure with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
     // basePrompt += `, figura real con atuendo elaborado y símbolos de ${suiteInfo.name}`;
   } else if (rank === "As") {
     // basePrompt += `, diseño elegante centrado en un gran símbolo de ${suiteInfo.name}`;
     basePrompt += `,  elegant design centered on a large symbol of ${suiteInfo.name}`;
-  } else if (rank === "Joker") {
-    basePrompt += `, burlesque and chaotic figure with elements of all suits`;
+  } else if (rank === "🎭") {
+    basePrompt += `, full body character, burlesque and chaotic figure with elements of all suits, using a masks, determined look`;
     // basePrompt += `, figura burlesca y caótica con elementos de todos los palos`;
   } else {
-    basePrompt += `, ${value} symbols of ${suiteInfo.name} arranged artistically`;
+    basePrompt += `, ${value} symbols of ${suiteInfo.name} arranged artistically, symbols of suits such as ${suiteInfo.name} prominently displayed`;
     // basePrompt += `, ${value} símbolos de ${suiteInfo.name} dispuestos de manera artística`;
   }
 
-  return basePrompt + ", transparent background";
+  return basePrompt + ", clean white background behind the figure"; //sharp features, heroic
+  // return basePrompt + ", transparent background"; //sharp features, heroic
   // return basePrompt + ", fondo transparente";
 }
 
 // Función para generar la imagen usando la API de Segmind
 async function generateImage(prompt, api) {
-  console.log('backendUrl + api: ', backendUrl + api);
   try {
     const response = await axios.post(
       backendUrl + api,
       {
-        prompt: prompt + ", full body character, transparent background, high quality, detailed",
-        negative_prompt: "background, multiple characters, blurry, low quality, clothing covering symbolic elements",
+        prompt: prompt + ", high quality, detailed",
+        // negative_prompt: "background, multiple characters, blurry, low quality, clothing covering symbolic elements",
+        negative_prompt: "multiple characters, blurry, low quality, clothing covering symbolic elements",
         samples: 1,
         scheduler: "UniPC",
         numInferenceSteps: 30,
@@ -108,8 +127,6 @@ async function generateImage(prompt, api) {
         responseType: "arraybuffer",
       }
     );
-    // width: 512,
-    // height: 768,
 
     console.log('Response status:', response.status);
     const blob = new Blob([response.data], { type: "image/png" });
@@ -136,7 +153,12 @@ generateBtn.addEventListener("click", async () => {
     cardValue.textContent = value;
   });
   cardSuites.forEach(cardSuite => {
-    cardSuite.textContent = suite;
+    if(suite !== '🎭') {
+      cardSuite.textContent = suite;
+    } else {
+      cardSuite.textContent = '';
+    }
+
   });
   
   // Cambiar de color si es corazones o diamantes
@@ -175,15 +197,15 @@ generateBtn.addEventListener("click", async () => {
       throw new Error("No image URL returned");
     }
   } catch (error) {
-    console.error("Error al generar la imagen:", error);
-    cardImage.textContent = "Error al generar la imagen";
+    console.error("Error generating:", error);
+    cardImage.textContent = "Error generating";
   }
 });
 
-// Actualizar las opciones de valor cuando se selecciona Joker
+// Actualizar las opciones de valor cuando se selecciona Jester
 suiteSelect.addEventListener("change", () => {
-  if (suiteSelect.value === "Joker") {
-    valueSelect.innerHTML = '<option value="Joker">Joker</option>';
+  if (suiteSelect.value === "🎭") {
+    valueSelect.innerHTML = '<option value="🎭">Jester</option>';
   } else {
     valueSelect.innerHTML = `
             <option value="1">1</option>
@@ -204,12 +226,27 @@ suiteSelect.addEventListener("change", () => {
 });
 
 
-// Función para exportar la carta completa como imagen
-exportBtnCardComplete.addEventListener('click', () => {
-    html2canvas(cardElement).then((canvas) => {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png');
-        link.download = `${valueSelect.value}_${suiteSelect.value}.png`;
-        link.click();
-    });
+exportBtnCardComplete.addEventListener('click', (event) => {
+  event.preventDefault(); // Previene el comportamiento por defecto, como el envío de un formulario
+    event.stopPropagation(); // Detiene la propagación del evento para que no afecte otros elementos
+
+  const scaleFactor = 3; // Aumenta el factor de escala para mejorar la calidad (2 o 3 veces la resolución original)
+  
+  html2canvas(cardElement, {
+      scale: scaleFactor,  // Escala el canvas
+      useCORS: true,       // Permite cargar imágenes de otros dominios
+      logging: true,       // Muestra información en la consola (opcional)
+  }).then((canvas) => {
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/jpeg', 0.95); // Exporta como JPG de alta calidad
+      // link.href = canvas.toDataURL('image/png'); // Exporta como PNG de alta calidad
+      link.download = `${suiteSelect.value}_${valueSelect.value}.png`;
+      link.click();
+  });
 });
+
+
+// Consejos adicionales:
+// Calidad en JPEG: Si decides exportar en JPEG (por ejemplo, canvas.toDataURL('image/jpeg', 0.95)), puedes ajustar la calidad con un valor entre 0 y 1. Para una calidad casi sin pérdidas, utiliza un valor cercano a 1.
+
+// Tamaño del archivo: Ten en cuenta que aumentar la escala puede generar archivos más grandes. Esto mejora la calidad pero también puede ralentizar la exportación, especialmente si la imagen tiene muchos detalles.

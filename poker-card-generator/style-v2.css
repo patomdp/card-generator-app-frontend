@@ -95,5 +95,6 @@ button:hover {
 
 .bottom {
     align-items: flex-end;
-    justify-content: end;
+    /* justify-content: end; */
+    rotate: 180deg;
 }
