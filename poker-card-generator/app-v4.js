@@ -78,10 +78,10 @@ function generateRandomSeed() {
 // Prompt: Character that represents the Poker Card 🎭 of Jester, chaotic, unpredictable, playful, in the style of multicolor with multicolor, vibrant, 🎭 symbols of Jester arranged artistically, transparent background
 function generatePrompt(suite, value) {
   const suiteInfo = suiteCharacteristics[suite];
-  // let rank = cardRanks[value] || value;
+  let rank = cardRanks[value] || value;
   // let rank = value;
-  let rank = cardRanks[value];
-  console.log('rank: ', rank);
+  // let rank = cardRanks[value];
+  console.log('rank or value: ', rank);
   // clg
   // Character that represents the
   let basePrompt = `${rank} of ${suiteInfo.name}, ${suiteInfo.traits}, ${suiteInfo.style} with ${suiteInfo.palette} bold and simple colors, high-contrast color palette, hd, fully detailed`;
@@ -127,8 +127,6 @@ async function generateImage(prompt, api) {
         responseType: "arraybuffer",
       }
     );
-
-    console.log('Response status:', response.status);
     const blob = new Blob([response.data], { type: "image/png" });
     const imageUrl = URL.createObjectURL(blob);
     console.log('Image URL:', imageUrl);
