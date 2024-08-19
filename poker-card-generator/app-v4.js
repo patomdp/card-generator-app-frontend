@@ -4,6 +4,8 @@ const selectedStyle = "minimalist and geometric shapes, vector art";
 // const selectedStyle = "Vintage, detailed and ornate, featuring royal figures with elaborate crowns and robes, rich colors, intricate patterns, old parchment background, traditional artistic style, symbols of suits like hearts, spades, diamonds, and clubs.";
 // const selectedStyle = "Universe, cosmic, magical, spiritual, ethereal, mystical, astrological, stars";
 
+const hf_apiKey = 'Bearer hf_';
+
 // Characteristics of the suits
 const suiteCharacteristics = {
   "♠️": {
