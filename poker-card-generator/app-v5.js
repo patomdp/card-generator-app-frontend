@@ -1,7 +1,5 @@
 const selectedStyle = "minimalist and geometric shapes, vector art";
 
-const hf_apiKey = 'Bearer hf_';
-
 // Characteristics of the suits
 const suiteCharacteristics = {
   "♠️": {
@@ -237,6 +235,8 @@ generateBtnFlux.addEventListener("click", async () => {
           };
           img.src = imageUrl;
           cardImage.style.borderRadius = '1em';
+          cardImage.style.backgroundSize = 'cover';
+          // background-size: contain;
       } else {
           throw new Error("No image URL returned");
       }
@@ -252,7 +252,9 @@ async function generateImageFlux(prompt) {
       headers: {
           'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ description: prompt })
+      body: JSON.stringify({ 
+        description: prompt 
+      })
   });
 
   if (!response.ok) {
