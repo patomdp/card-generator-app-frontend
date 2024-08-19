@@ -63,9 +63,9 @@ const promptUsed = document.getElementById("promptUsed");
 const exportBtnCardComplete = document.getElementById('exportBtnCardComplete');
 const cardElement = document.querySelector('.card');
 // Backend
-// const backendUrl = "https://image-generator-backend-obj1.onrender.com";
-const backendUrl = 'https://card-generator-app-backend.onrender.com';
-// const imageGeneratorAPI = "/api/image-generator";
+const backendUrl = "https://image-generator-backend-obj1.onrender.com";
+const backendUrlFlux = 'https://card-generator-app-backend.onrender.com';
+const imageGeneratorAPI = "/api/image-generator";
 const fluxAPI = "/api/generate-image-flux";
 
 // Función para generar una semilla aleatoria
@@ -75,35 +75,23 @@ function generateRandomSeed() {
 
 // Función para generar el prompt
 
-// Prompt: Character that represents the Poker Card 🎭 of Jester, chaotic, unpredictable, playful, in the style of multicolor with multicolor, vibrant, 🎭 symbols of Jester arranged artistically, transparent background
 function generatePrompt(suite, value) {
   const suiteInfo = suiteCharacteristics[suite];
   let rank = cardRanks[value] || value;
-  // let rank = value;
-  // let rank = cardRanks[value];
   console.log('rank or value: ', rank);
-  // clg
-  // Character that represents the
   let basePrompt = `${rank} of ${suiteInfo.name}, ${suiteInfo.traits}, ${suiteInfo.style} with ${suiteInfo.palette} bold and simple colors, high-contrast color palette, hd, fully detailed`;
-  // let basePrompt = `Personaje que representa a la Carta de póker ${rank} de ${suiteInfo.name}, ${suiteInfo.traits}, en estilo ${suiteInfo.color} con ${suiteInfo.palette}`;
 
   if (rank === "King" || rank === "Queen" || rank === "Jack") {
     basePrompt += `, unique fantasy-themed character in dynamic pose upper body, royal figure with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
-    // basePrompt += `, figura real con atuendo elaborado y símbolos de ${suiteInfo.name}`;
   } else if (rank === "As") {
-    // basePrompt += `, diseño elegante centrado en un gran símbolo de ${suiteInfo.name}`;
     basePrompt += `,  elegant design centered on a large symbol of ${suiteInfo.name}`;
   } else if (rank === "🎭") {
     basePrompt += `, full body character, burlesque and chaotic figure with elements of all suits, using a masks, determined look`;
-    // basePrompt += `, figura burlesca y caótica con elementos de todos los palos`;
   } else {
     basePrompt += `, ${value} symbols of ${suiteInfo.name} arranged artistically, symbols of suits such as ${suiteInfo.name} prominently displayed`;
-    // basePrompt += `, ${value} símbolos de ${suiteInfo.name} dispuestos de manera artística`;
   }
 
   return basePrompt + ", clean white background behind the figure"; //sharp features, heroic
-  // return basePrompt + ", transparent background"; //sharp features, heroic
-  // return basePrompt + ", fondo transparente";
 }
 
 // Función para generar la imagen usando la API de Segmind
@@ -113,7 +101,6 @@ async function generateImage(prompt, api) {
       backendUrl + api,
       {
         prompt: prompt + ", high quality, detailed",
-        // negative_prompt: "background, multiple characters, blurry, low quality, clothing covering symbolic elements",
         negative_prompt: "multiple characters, blurry, low quality, clothing covering symbolic elements",
         samples: 1,
         scheduler: "UniPC",
@@ -180,7 +167,7 @@ generateBtn.addEventListener("click", async () => {
 
   try {
     // Generar y mostrar la imagen
-    const imageUrl = await generateImage(prompt, fluxAPI);
+    const imageUrl = await generateImage(prompt, imageGeneratorAPI);
     if (imageUrl) {
       const img = new Image();
       img.onload = () => {
@@ -260,7 +247,7 @@ generateBtnFlux.addEventListener("click", async () => {
 });
 
 async function generateImageFlux(prompt) {
-  const response = await fetch('/generate-image-flux', {
+  const response = await fetch('https://card-generator-app-backend.onrender.com/generate-image-flux', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -314,14 +301,8 @@ exportBtnCardComplete.addEventListener('click', (event) => {
   }).then((canvas) => {
       const link = document.createElement('a');
       link.href = canvas.toDataURL('image/jpeg', 0.95); // Exporta como JPG de alta calidad
-      // link.href = canvas.toDataURL('image/png'); // Exporta como PNG de alta calidad
       link.download = `${suiteSelect.value}_${valueSelect.value}.png`;
       link.click();
   });
 });
 
-
-// Consejos adicionales:
-// Calidad en JPEG: Si decides exportar en JPEG (por ejemplo, canvas.toDataURL('image/jpeg', 0.95)), puedes ajustar la calidad con un valor entre 0 y 1. Para una calidad casi sin pérdidas, utiliza un valor cercano a 1.
-
-// Tamaño del archivo: Ten en cuenta que aumentar la escala puede generar archivos más grandes. Esto mejora la calidad pero también puede ralentizar la exportación, especialmente si la imagen tiene muchos detalles.
