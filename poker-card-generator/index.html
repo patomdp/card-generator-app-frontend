@@ -7,6 +7,10 @@
     <title>Póker Card Generator</title>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/svg-capture@latest/dist/svg-capture.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <link rel="stylesheet" href="style-v2.css">
 </head>
 <body>
@@ -24,35 +28,46 @@
             </div>
         </div>
         <div class="controls">
-            <select id="suiteSelect">
-                <option value="♠️">♠️ Spades</option>
-                <option value="♦️">♦️ Diamonds</option>
-                <option value="♣️">♣️ Clubs</option>
-                <option value="♥️">♥️ Hearts</option>
-                <option value="🎭">🎭 Jester</option>
-            </select>
-            <select id="valueSelect">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="J">J</option>
-                <option value="Q">Q</option>
-                <option value="K">K</option>
-            </select>
-            <button type="submit" id="generateBtn">Generate</button>
-            <button type="submit" id="generateBtnFlux">Generate Flux</button>
-            <!-- <button id="exportBtnCard">Export</button> -->
-            <button type="button" id="exportBtnCardComplete">Export</button>
-        </div>
-        <div id="promptUsed">
+            <div class="action-wrapper">
+                <select id="suiteSelect">
+                    <option value="♠️">♠️ Spades</option>
+                    <option value="♦️">♦️ Diamonds</option>
+                    <option value="♣️">♣️ Clubs</option>
+                    <option value="♥️">♥️ Hearts</option>
+                    <option value="🎭">🎭 Jester</option>
+                </select>
+                <select id="valueSelect">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="J">J</option>
+                    <option value="Q">Q</option>
+                    <option value="K">K</option>
+                </select>
 
+            </div>
+            <div class="button-wrapper">
+                <button type="submit" id="generateBtnPrompt">Generate prompt</button>
+                <button type="submit" id="generateBtn">Generate</button>
+                <button type="submit" id="generateBtnFlux">Generate Flux</button>
+                <button type="button" id="exportBtnCardComplete">Export</button>
+                <!-- Botón para exportar con svg-capture -->
+                <!-- <button type="button" id="exportBtnCardSvgCapture">Exportar SVG Capture</button> -->
+                <!-- <button id="exportBtnDomToImage">Exportar con dom-to-image</button> -->
+                <!-- <button id="exportBtnDomToImage2">Exportar con dom-to-image2</button> -->
+
+
+            </div>
+            <div id="promptUsed">
+    
+            </div>
         </div>
     </div>
     <script src="app-v5.js"></script>
