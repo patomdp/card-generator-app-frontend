@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Imágenes de Cartas</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <h1>Generador de Imágenes de Cartas</h1>
+
+    <!-- Contenedor de la carta -->
+    <div id="cardElement" class="card">
+        <!-- Aquí iría el contenido de la carta, como el símbolo y el valor -->
+            <div id="imageContainer">
+                <div id="loadingIndicator">Cargando...</div>
+                <img id="generatedImage" src="" alt="Imagen Generada">
+            </div>
+            <!-- <div class="card-content">
+                <div id="suiteOutput">♠️</div>
+                <div id="valueOutput">A</div>
+            </div> -->
+        </div>
+    
+    <div class="controls">
+        <select id="suiteSelect">
+            <option value="♠️">♠️ Spades</option>
+            <option value="♦️">♦️ Diamonds</option>
+            <option value="♣️">♣️ Clubs</option>
+            <option value="♥️">♥️ Hearts</option>
+        </select>
+        
+        <select id="valueSelect">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="Jack">J</option>
+            <option value="Queen">Q</option>
+            <option value="King">K</option>
+        </select>
+    </div>
+    <div class="button-wrapper">
+        <button type="submit" id="generateBtn">Generate</button>
+        <button type="button" id="exportBtnCardComplete">Export</button>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
+
