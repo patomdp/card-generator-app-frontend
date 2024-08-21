@@ -81,26 +81,26 @@ function generatePrompt(suite, value) {
   console.log("rank or value: ", rank);
   let basePrompt = `${rank} of ${suiteInfo.name}, ${suiteInfo.traits}`;
 
- switch (rank) {
-  case "King":
-    basePrompt += `, adult unique fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
-    break;
-  case "Queen":
-    basePrompt += `, adult unique fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
-    break;
-  case "Jack":
-    basePrompt += `, adult knight fierce fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated armor and helmet and symbols of ${suiteInfo.name} prominently displayed`; // determined look
-    break;
-  case "Ace":
-    basePrompt += `,  elegant design centered on a large symbol of ${suiteInfo.name}`;
-    break;
-  case "🎭":
-    basePrompt += `, grown adult, full body character, burlesque mascarade man, dagger in his hand, symbols of ♥️ ♦️ ♣️ ♠️, using a masks, determined look, serious, mysterious`;
-    break;
-  default:
-    basePrompt += `, only ${value} symbols of ${suiteInfo.name} arranged artistically and prominently displayed`;
-    break;
- }
+  switch (rank) {
+    case "King":
+      basePrompt += `, adult unique fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
+      break;
+    case "Queen":
+      basePrompt += `, adult unique fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
+      break;
+    case "Jack":
+      basePrompt += `, adult knight fierce fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated armor and helmet and symbols of ${suiteInfo.name} prominently displayed`; // determined look
+      break;
+    case "Ace":
+      basePrompt += `,  elegant design centered on a large symbol of ${suiteInfo.name}`;
+      break;
+    case "🎭":
+      basePrompt += `, grown adult, full body character, burlesque mascarade man, dagger in his hand, symbols of ♥️ ♦️ ♣️ ♠️, using a masks, determined look, serious, mysterious`;
+      break;
+    default:
+      basePrompt += `, only ${value} symbols of ${suiteInfo.name} arranged artistically and prominently displayed`;
+      break;
+  }
   // // close-up half upper body
   // if (rank === "King" || rank === "Queen") {
   //   basePrompt += `, adult unique fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
@@ -116,7 +116,7 @@ function generatePrompt(suite, value) {
 
   return (
     basePrompt +
-    ` with ${suiteInfo.palette}, clean white background, hd, realistic style, fully detailed`
+    ` with ${suiteInfo.palette}, clean white background, hd, realistic style, fully detailed, not cartoon`
   ); //sharp features, heroic
 }
 
@@ -174,7 +174,23 @@ generateBtn.addEventListener("click", async () => {
   });
 
   // Cambiar de color si es corazones o diamantes
-  const color = suite === "♥️" || suite === "♦️" ? "red" : "black";
+  // const color = suite === "♥️" || suite === "♦️" ? "red" : "black";
+  let color = "";
+  switch (suite) {
+    case "♥️":
+      color = "red";
+      break;
+    case "♦️":
+      color = "blue";
+      break;
+    case "♣️":
+      color = "geen";
+      break;
+
+    default:
+      color = "black";
+      break;
+  }
   cardValues.forEach((cardValue) => {
     cardValue.style.color = color;
   });
@@ -234,25 +250,26 @@ generateBtnFlux.addEventListener("click", async () => {
   const value = valueSelect.value;
 
   // Seleccionar todos los elementos con la clase card-value y card-suite
-  const cardValues = document.querySelectorAll(".card-value");
-  const cardSuites = document.querySelectorAll(".card-suite");
+  // const cardValues = document.querySelectorAll(".card-value");
+  // const cardSuites = document.querySelectorAll(".card-suite");
 
-  // Actualizar la visualización de la carta
-  cardValues.forEach((cardValue) => {
-    cardValue.textContent = value;
-  });
-  cardSuites.forEach((cardSuite) => {
-    cardSuite.textContent = suite !== "🎭" ? suite : "";
-  });
+  // // Actualizar la visualización de la carta
+  // cardValues.forEach((cardValue) => {
+  //   cardValue.textContent = value;
+  // });
+  // cardSuites.forEach((cardSuite) => {
+  //   cardSuite.textContent = suite !== "🎭" ? suite : "";
+  // });
 
-  // Cambiar de color si es corazones o diamantes
-  const color = suite === "♥️" || suite === "♦️" ? "red" : "black";
-  cardValues.forEach((cardValue) => {
-    cardValue.style.color = color;
-  });
-  cardSuites.forEach((cardSuite) => {
-    cardSuite.style.color = color;
-  });
+  // // Cambiar de color si es corazones o diamantes
+  // const color = suite === "♥️" || suite === "♦️" ? "red" : "black";
+  // cardValues.forEach((cardValue) => {
+  //   cardValue.style.color = color;
+  // });
+  // cardSuites.forEach((cardSuite) => {
+  //   cardSuite.style.color = color;
+  // });
+  suiteColors();
 
   // Mostrar estado de carga
   const cardImage = document.querySelector(".card-image");
@@ -289,6 +306,49 @@ generateBtnFlux.addEventListener("click", async () => {
   }
 });
 
+function suiteColors() {
+  const suite = suiteSelect.value;
+  const value = valueSelect.value;
+
+  // Seleccionar todos los elementos con la clase card-value y card-suite
+  const cardValues = document.querySelectorAll(".card-value");
+  const cardSuites = document.querySelectorAll(".card-suite");
+
+  // Actualizar la visualización de la carta
+  cardValues.forEach((cardValue) => {
+    cardValue.textContent = value;
+  });
+  cardSuites.forEach((cardSuite) => {
+    cardSuite.textContent = suite !== "🎭" ? suite : "";
+  });
+
+  // Cambiar de color si es corazones o diamantes
+  // const color = suite === "♥️" || suite === "♦️" ? "red" : "black";
+  let color = "";
+  switch (suite) {
+    case "♥️":
+      color = "red";
+      break;
+    case "♦️":
+      color = "blue";
+      break;
+    case "♣️":
+      color = "green";
+      break;
+    default:
+      color = "black";
+      break;
+  }
+      
+  console.log('color: ', color);
+  cardValues.forEach((cardValue) => {
+    cardValue.style.color = color;
+  });
+  cardSuites.forEach((cardSuite) => {
+    cardSuite.style.color = color;
+  });
+}
+
 async function generateImageFlux(prompt) {
   const response = await fetch(
     "https://card-generator-app-backend.onrender.com/generate-image-flux",
@@ -313,37 +373,6 @@ async function generateImageFlux(prompt) {
   return data.imageUrl;
 }
 
-
-// async function generateImage(prompt, api) {
-//   try {
-//     const response = await axios.post(
-//       backendUrl + api,
-//       {
-//         prompt: prompt + ", high quality, detailed",
-//         negative_prompt:
-//           "multiple characters, blurry, low quality, clothing covering symbolic elements",
-//         samples: 1,
-//         scheduler: "UniPC",
-//         numInferenceSteps: 30,
-//         guidanceScale: 8,
-//         seed: generateRandomSeed(),
-//         width: 512, // Establece el ancho a 512
-//         height: 718, // Establece la altura a 718
-//       },
-//       {
-//         responseType: "arraybuffer",
-//       }
-//     );
-//     const blob = new Blob([response.data], { type: "image/png" });
-//     const imageUrl = URL.createObjectURL(blob);
-//     console.log("Image URL:", imageUrl);
-//     return imageUrl; // Devolvemos la URL de la imagen
-//   } catch (error) {
-//     console.error("Error:", error);
-//     throw error; // Lanzamos el error para manejarlo en el llamador
-//   }
-// }
-
 // Actualizar las opciones de valor cuando se selecciona Jester
 suiteSelect.addEventListener("change", () => {
   if (suiteSelect.value === "🎭") {
@@ -367,15 +396,14 @@ suiteSelect.addEventListener("change", () => {
   }
 });
 
-
 // Simplified High Quality Card Export Function
 exportBtnCardComplete.addEventListener("click", async () => {
   const scaleFactor = 4; // Ajusta este valor según sea necesario para balancear calidad y rendimiento
-  
+
   // Asegurarse de que la imagen de fondo esté completamente cargada
   const cardImage = document.querySelector(".card-image");
   const backgroundImageUrl = cardImage.style.backgroundImage.slice(5, -2); // Extrae la URL de 'url("...")'
-  
+
   await new Promise((resolve) => {
     const img = new Image();
     img.onload = resolve;
@@ -390,21 +418,25 @@ exportBtnCardComplete.addEventListener("click", async () => {
     backgroundColor: null,
     logging: true,
     width: cardElement.offsetWidth,
-    height: cardElement.offsetHeight
+    height: cardElement.offsetHeight,
   };
 
   try {
     const canvas = await html2canvas(cardElement, options);
-    
-    canvas.toBlob((blob) => {
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${suiteSelect.value}_${valueSelect.value}.png`;
-      link.click();
-      
-      setTimeout(() => URL.revokeObjectURL(url), 100);
-    }, 'image/png', 1.0);
+
+    canvas.toBlob(
+      (blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${suiteSelect.value}_${valueSelect.value}.png`;
+        link.click();
+
+        setTimeout(() => URL.revokeObjectURL(url), 100);
+      },
+      "image/png",
+      1.0
+    );
   } catch (error) {
     console.error("Error during export:", error);
     alert("Failed to export the card. Please try again.");
