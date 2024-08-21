@@ -82,7 +82,10 @@ function generatePrompt(suite, value) {
   let basePrompt = `${rank} of ${suiteInfo.name}, ${suiteInfo.traits}`;
 
  switch (rank) {
-  case "King" || "Queen":
+  case "King":
+    basePrompt += `, adult unique fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
+    break;
+  case "Queen":
     basePrompt += `, adult unique fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
     break;
   case "Jack":
