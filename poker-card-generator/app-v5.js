@@ -275,8 +275,8 @@ generateBtnFlux.addEventListener("click", async () => {
       };
       img.src = imageUrl;
       cardImage.style.borderRadius = "1em";
-      cardImage.style.backgroundSize = "cover";
-      // background-size: contain;
+      cardImage.style.backgroundSize = "contain";
+      // background-size: contain; // cover
     } else {
       throw new Error("No image URL returned");
     }
