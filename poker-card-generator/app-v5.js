@@ -86,7 +86,7 @@ function generatePrompt(suite, value) {
       basePrompt += `, adult unique fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
       break;
     case "Queen":
-      basePrompt += `, adult unique fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
+      basePrompt += `, female adult unique fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated clothing and symbols of ${suiteInfo.name} prominently displayed`; // determined look
       break;
     case "Jack":
       basePrompt += `, adult knight fierce fantasy-themed character in dynamic pose, looking at the camera with determined look, full body, with an elaborated armor and helmet and symbols of ${suiteInfo.name} prominently displayed`; // determined look
