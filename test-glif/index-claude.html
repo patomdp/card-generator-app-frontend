@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glif Testing Area</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-between min-h-screen p-4">
+    <h1 class="text-2xl font-bold mb-4">Glif Testing Area</h1>
+    <div class="wrapper flex flex-col items-center gap-4">
+        
+        <div id="cardElement" class="w-64 h-96 bg-white shadow-lg rounded-lg overflow-hidden mb-4 relative hover:scale-105 transition-all">
+            <div id="topLeft" class="absolute top-2 left-2 text-xl"></div>
+            <div id="bottomRight" class="absolute bottom-2 right-2 text-xl transform rotate-180"></div>
+            <img id="generatedImage" src="" alt="Generated Card" class="w-full h-full object-contain hidden">
+            <div id="examplePreview" class="flex flex-col gap-4 h-full items-center justify-center bg-white bg-opacity-75 select-none">
+                <p>Preview Example</p>
+            </div>
+            
+            <div id="loadingIndicator" class=" flex flex-col gap-4 h-full items-center justify-center bg-white bg-opacity-75 hidden">
+                
+                <div id="spinnerImage" class="h-12 w-12 animate-spin ">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                    </svg>
+                </div>
+                <p>
+                    Loading...
+                </p>
+            </div>
+        </div>
+    
+        <div class="flex space-x-2 mb-4">
+            <select id="suiteSelect" class="p-2 border ">
+                <option value="♠️">♠️ Spades</option>
+                <option value="♦️">♦️ Diamonds</option>
+                <option value="♣️">♣️ Clubs</option>
+                <option value="♥️">♥️ Hearts</option>
+            </select>
+            <select id="valueSelect" class="p-2 border">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="Jack">J</option>
+                <option value="Queen">Q</option>
+                <option value="King">K</option>
+            </select>
+        </div>
+    
+        <div class="flex space-x-2">
+            <button id="generateBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Run This Glif</button>
+            <button id="exportBtn" class="bg-green-500 text-white px-4 py-2 rounded">Export</button>
+            <button id="saveBtn" class="bg-slate-500 text-white px-4 py-2 rounded">Save Cloudinary</button>
+        </div>
+        <div class="swiper w-full max-w-3xl hover:scale-105 transition-all">
+            <div class="swiper-wrapper">
+                <!-- Slides will be dynamically added here -->
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+        </div>
+    </div>
+    <footer id="footer-area" class="w-full flex justify-end ">
+        <a href="https://glif.app/glifs" target="_blank">
+            <img class="h-9 hover:scale-105 transition-all" src="../src/images/glif_tags/pwrapp_logo_white.png" alt="Glif Logo" >
+        </a>
+
+    </footer>
+
+    <script>
+        const suiteSelect = document.getElementById('suiteSelect');
+        const valueSelect = document.getElementById('valueSelect');
+        const generateBtn = document.getElementById('generateBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const cardElement = document.getElementById('cardElement');
+        const generatedImage = document.getElementById('generatedImage');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const topLeft = document.getElementById('topLeft');
+        const bottomRight = document.getElementById('bottomRight');
+        const examplePreview = document.getElementById('examplePreview');
+
+        let swiper;
+
+        function updateCardCorners() {
+            let value = valueSelect.value;
+            switch (value) {
+                case "Jack":
+                case "Queen":
+                case "King":
+                    value = value[0];
+                    console.log(value[0]);  
+                        break;
+                default:
+                    value = valueSelect.value;
+                    break;
+            }
+            const suite = suiteSelect.value;
+            topLeft.textContent = `${value}${suite}`;
+            bottomRight.textContent = `${value}${suite}`;
+        }
+
+        suiteSelect.addEventListener('change', updateCardCorners);
+        valueSelect.addEventListener('change', updateCardCorners);
+
+        saveBtn.addEventListener('click', async () => {
+            console.log('generatedImage: ', generatedImage.src);
+            // alert('Save Btn press');
+        });
+
+
+        // generateBtn.addEventListener('click', async () => {
+        //     loadingIndicator.classList.remove('hidden');
+        //     generatedImage.classList.add('hidden');
+        //     examplePreview.classList.add('hidden');
+
+        //     const data = {
+        //         id: "cm04y8i690006113nh6bgjk1m",
+        //         inputs: [valueSelect.value, suiteSelect.value],
+        //     };
+
+        //     try {
+        //         const response = await fetch(
+        //             "https://card-generator-app-backend.onrender.com/generate-glif", {
+        //             method: "POST",
+        //             headers: { "Content-Type": "application/json" },
+        //             body: JSON.stringify(data),
+        //         });
+
+        //         if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+
+        //         const result = await response.json();
+        //         generatedImage.src = result.imageUrl;
+        //         generatedImage.classList.remove('hidden');
+        //         updateCardCorners();
+        //     } catch (error) {
+        //         console.error("Error generating image:", error);
+        //         alert("Error generating image. Please try again.");
+        //     } finally {
+        //         loadingIndicator.classList.add('hidden');
+        //         topLeft.classList.add('hidden');
+        //         bottomRight.classList.add('hidden');
+        //     }
+        // });
+
+        generateBtn.addEventListener('click', async () => {
+            loadingIndicator.classList.remove('hidden');
+            generatedImage.classList.add('hidden');
+            examplePreview.classList.add('hidden');
+
+            const data = {
+                id: "cm04y8i690006113nh6bgjk1m",
+                inputs: [valueSelect.value, suiteSelect.value],
+            };
+
+            try {
+                const response = await fetch(
+                    "https://card-generator-app-backend.onrender.com/generate-glif", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                });
+
+                if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+
+                const result = await response.json();
+                console.log("API response:", result); // Log the entire response
+
+                if (!result.imageUrl) {
+                    throw new Error("No image URL received from the API");
+                }
+
+                generatedImage.src = result.imageUrl;
+                generatedImage.classList.remove('hidden');
+                updateCardCorners();
+            } catch (error) {
+                console.error("Error generating image:", error);
+                alert(`Error generating image: ${error.message}. Please try again.`);
+            } finally {
+                loadingIndicator.classList.add('hidden');
+                topLeft.classList.add('hidden');
+                bottomRight.classList.add('hidden');
+            }
+        });
+
+        exportBtn.addEventListener('click', async () => {
+            try {
+                const canvas = await html2canvas(cardElement, {
+                    scale: 4,
+                    useCORS: true,
+                    backgroundColor: null,
+                });
+
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.download = `${suiteSelect.value}_${valueSelect.value}.png`;
+                    link.click();
+                    URL.revokeObjectURL(url);
+                }, "image/png", 1.0);
+            } catch (error) {
+                console.error("Export error:", error);
+                alert("Failed to export card. Please try again.");
+            }
+        });
+
+        saveBtn.addEventListener('click', async () => {
+            if (!generatedImage.src) {
+                alert('Please generate an image first.');
+                return;
+            }
+
+            try {
+                const response = await fetch('https://card-generator-app-backend.onrender.com/upload-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: generatedImage.src })
+                });
+
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                const result = await response.json();
+                alert('Image saved to Cloudinary successfully!');
+                await loadCloudinaryImages();
+            } catch (error) {
+                console.error('Error saving image:', error);
+                alert('Failed to save image to Cloudinary. Please try again.');
+            } finally {
+                loadCloudinaryImages();
+            }
+        });
+
+        async function loadCloudinaryImages() {
+            try {
+                const response = await fetch('https://card-generator-app-backend.onrender.com/get-cloudinary-images');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                const images = await response.json();
+                const swiperWrapper = document.querySelector('.swiper-wrapper');
+                swiperWrapper.innerHTML = '';
+
+                images.forEach(image => {
+                    const slide = document.createElement('div');
+                    slide.className = 'swiper-slide';
+                    slide.innerHTML = `<img src="${image.url}" alt="Card Image" class="w-full h-full object-contain">`;
+                    swiperWrapper.appendChild(slide);
+                });
+
+                if (swiper) {
+                    swiper.update();
+                } else {
+                    swiper = new Swiper('.swiper', {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading Cloudinary images:', error);
+                alert('Failed to load images from Cloudinary. Please try again.');
+            }
+        }
+
+        // Initialize card corners and load Cloudinary images
+        updateCardCorners();
+        loadCloudinaryImages();
+    </script>
+</body>
+</html>

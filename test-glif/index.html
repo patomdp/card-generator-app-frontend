@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Imágenes de Cartas</title>
+    <title>Poker Card Generator - GLIF</title>
     <link rel="stylesheet" href="style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
-<body>
-    <h1>Generador de Imágenes de Cartas</h1>
 
-    <!-- Contenedor de la carta -->
+<body>
+    <h1>Poker Card Generator - GLIF</h1>
+
     <div id="cardElement" class="card">
-        <!-- Aquí iría el contenido de la carta, como el símbolo y el valor -->
-            <div id="imageContainer">
-                <div id="loadingIndicator">Cargando...</div>
-                <img id="generatedImage" src="" alt="Imagen Generada">
-            </div>
-            <!-- <div class="card-content">
-                <div id="suiteOutput">♠️</div>
-                <div id="valueOutput">A</div>
-            </div> -->
+        <div id="imageContainer">
+            <div id="loadingIndicator">Loading...</div>
+            <img id="generatedImage" src="" alt="Imagen Generada">
         </div>
-    
+    </div>
     <div class="controls">
         <select id="suiteSelect">
             <option value="♠️">♠️ Spades</option>
@@ -31,7 +26,7 @@
             <option value="♣️">♣️ Clubs</option>
             <option value="♥️">♥️ Hearts</option>
         </select>
-        
+
         <select id="valueSelect">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -51,9 +46,10 @@
     <div class="button-wrapper">
         <button type="submit" id="generateBtn">Generate</button>
         <button type="button" id="exportBtnCardComplete">Export</button>
+        <button type="button" id="saveBtn">Save</button>
     </div>
-    
+
     <script src="app.js"></script>
 </body>
-</html>
 
+</html>

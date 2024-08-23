@@ -1,5 +1,3 @@
-// Inicia la solicitud cuando el documento esté listo o en respuesta a un evento específico
-// document.addEventListener('DOMContentLoaded', async () => {
 // Elementos del DOM
 const suiteSelect = document.getElementById("suiteSelect");
 const valueSelect = document.getElementById("valueSelect");
@@ -46,8 +44,9 @@ async function generateImageGlif() {
     const value = valueSelect.value;
   
     // Crear la data para enviar al backend
+    // id: "cm03wvd8k0000pu97f7s2fd2c", // Poker Card Gen 1
     const data = {
-      id: "cm03wvd8k0000pu97f7s2fd2c",
+      id: "cm04y8i690006113nh6bgjk1m", // Enhanced with BG
       inputs: [value, suite],
     };
   
