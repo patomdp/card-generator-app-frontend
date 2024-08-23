@@ -65,7 +65,7 @@
             <button id="exportBtn" class="bg-green-500 text-white px-4 py-2 rounded">Export</button>
             <button id="saveBtn" class="bg-slate-500 text-white px-4 py-2 rounded">Save Cloudinary</button>
         </div>
-        <div class="swiper w-full max-w-3xl hover:scale-105 transition-all">
+        <div class="swiper w-full max-w-3xl">
             <div class="swiper-wrapper">
                 <!-- Slides will be dynamically added here -->
             </div>
@@ -258,7 +258,7 @@
                 images.forEach(image => {
                     const slide = document.createElement('div');
                     slide.className = 'swiper-slide';
-                    slide.innerHTML = `<img src="${image.url}" alt="Card Image" class="w-full h-full object-contain">`;
+                    slide.innerHTML = `<img src="${image.url}" alt="Card Image" class="w-full h-full object-contain hover:scale-105 transition-all">`;
                     swiperWrapper.appendChild(slide);
                 });
 
