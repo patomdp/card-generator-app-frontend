@@ -1,55 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poker Card Generator - GLIF</title>
-    <link rel="stylesheet" href="style.css">
-
+    <title>Glif Testing Area</title>
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
 </head>
-
-<body>
-    <h1>Poker Card Generator - GLIF</h1>
-
-    <div id="cardElement" class="card">
-        <div id="imageContainer">
-            <div id="loadingIndicator">Loading...</div>
-            <img id="generatedImage" src="" alt="Imagen Generada">
+<body class="bg-gray-100 flex flex-col items-center justify-between min-h-screen p-4 gap-4">
+    <h1 class="text-2xl font-bold ">Glif Testing Area</h1>
+    <div class="wrapper flex flex-col items-center gap-4 w-full">
+        
+        <div id="cardElement" class="w-64 h-96 bg-white shadow-lg rounded-lg overflow-hidden relative hover:scale-105 transition-all">
+            <div id="topLeft" class="absolute top-2 left-2 text-xl"></div>
+            <div id="bottomRight" class="absolute bottom-2 right-2 text-xl transform rotate-180"></div>
+            <img id="generatedImage" src="" alt="Generated Card" class="w-full h-full object-contain hidden">
+            <div id="examplePreview" class="flex flex-col gap-4 h-full items-center justify-center bg-white bg-opacity-75 select-none">
+                <p>Preview Example</p>
+            </div>
+            
+            <div id="loadingIndicator" class=" flex flex-col gap-4 h-full items-center justify-center bg-white bg-opacity-75 hidden">
+                
+                <div id="spinnerImage" class="h-12 w-12 animate-spin ">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                    </svg>
+                </div>
+                <p>
+                    Loading...
+                </p>
+            </div>
+        </div>
+    
+        <div class="flex space-x-2 ">
+            <select id="suiteSelect" class="p-2 border ">
+                <option value="♠️">♠️ Spades</option>
+                <option value="♦️">♦️ Diamonds</option>
+                <option value="♣️">♣️ Clubs</option>
+                <option value="♥️">♥️ Hearts</option>
+            </select>
+            <select id="valueSelect" class="p-2 border">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="Jack">J</option>
+                <option value="Queen">Q</option>
+                <option value="King">K</option>
+            </select>
+        </div>
+    
+        <div class="flex space-x-2">
+            <button id="generateBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Run This Glif</button>
+            <button id="exportBtn" class="bg-green-500 text-white px-4 py-2 rounded">Export</button>
+            <!-- <button id="saveBtn" disabled class="bg-slate-300 text-slate-500 px-4 py-2 rounded">Save Cloudinary</button> -->
+        </div>
+        <div class="swiper w-full max-w-3xl">
+            <div class="swiper-wrapper">
+                <!-- Slides will be dynamically added here -->
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
         </div>
     </div>
-    <div class="controls">
-        <select id="suiteSelect">
-            <option value="♠️">♠️ Spades</option>
-            <option value="♦️">♦️ Diamonds</option>
-            <option value="♣️">♣️ Clubs</option>
-            <option value="♥️">♥️ Hearts</option>
-        </select>
 
-        <select id="valueSelect">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="Jack">J</option>
-            <option value="Queen">Q</option>
-            <option value="King">K</option>
-        </select>
-    </div>
-    <div class="button-wrapper">
-        <button type="submit" id="generateBtn">Generate</button>
-        <button type="button" id="exportBtnCardComplete">Export</button>
-        <button type="button" id="saveBtn">Save</button>
+    <div id="fullscreenOverlay" class="fullscreen-overlay hidden fixed inset-0 w-full h-full bg-black bg-opacity-60 justify-center items-center z-50">
+        <img id="fullscreenImage" class="fullscreen-image max-w-[90%] max-h-[90%] object-contain rounded-2xl" alt="Fullscreen Image">
+
     </div>
 
-    <script src="app.js"></script>
+    <footer id="footer-area" class="w-full flex justify-end ">
+        <a href="https://glif.app/glifs" target="_blank">
+            <img class="h-9 hover:scale-105 transition-all" src="../src/images/glif_tags/pwrapp_logo_white.png" alt="Glif Logo" >
+        </a>
+    </footer>
+
+<script src="app.js"></script>
 </body>
-
 </html>
