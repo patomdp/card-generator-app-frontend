@@ -114,7 +114,7 @@ async function saveImage() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
         const result = await response.json();
-        alert('Image saved to Cloudinary successfully!');
+        // alert('Image saved to Cloudinary successfully!');
         await loadCloudinaryImages();
     } catch (error) {
         console.error('Error saving image:', error);
