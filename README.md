@@ -9,7 +9,9 @@ This is a playground for multiple Demo projects
 
 First prototype made with Claude AI, then refined several times.
 - You can try it on:
-[https://patomdp.github.io/card-generator-app-frontend/poker-card-generator/index.html]
+[link GitHub](https://patomdp.github.io/card-generator-app-frontend/poker-card-generator/index.html)
+or
+[link Netlify](https://pokercardgenerator.netlify.app/)
 
 
 ![chrome_J3IZKghLJs](https://github.com/user-attachments/assets/c9c8763c-6ec3-489f-96ff-59de41c32a47)
